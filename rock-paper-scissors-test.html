@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>untitled</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+ <meta name="keywords" content="">
+ <style>
+	*{padding: 0;margin: 0;}
+	body{padding: 20px;}
+	section{/*display: none;*/ margin: 20px 0;}
+	.hide{display: none;}
+ </style>
+<!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>	
+var bestof;
+var myScore = 0;
+var pcScore = 0;
+
+function letsplay(selection){
+	var userChoice = selection;
+	var pcChoice = Math.random();
+	if (pcChoice <= 0.33) {
+		pcChoice = "rock";
+	}else if(pcChoice <= 0.64){
+		pcChoice = "paper";
+	}else{
+		pcChoice = "scissors";
+	}
+	
+	console.log("You chose: "+ userChoice);
+	console.log("Computer chose: " + pcChoice);
+
+	function gameon(user1,user2){
+		if (user1 === user2) {
+			$('.battleResult').html("It's a tie!");
+		};
+		if (user1 === "rock") {
+			if (user2 === "paper") {
+				pcScore = pcScore + 1;				
+				$('.opponentScore').html(pcScore);
+				$('.battleResult').html("paper covers rock, you loose!" + "PC Score= "+ pcScore);
+			}else{
+				myScore = myScore + 1;
+				$('.myscore').html(myScore);
+				$('.battleResult').html("rock crushes scissors, you win! " + "My Score= " + myScore);
+			}
+		};
+		if (user1 === "paper") {
+			if (user2 === "scissors") {
+				pcScore = pcScore + 1;
+				$('.opponentScore').html(pcScore);
+				$('.battleResult').html("scissors shred paper, you loose!" + "PC Score= "+ pcScore)
+			}else{
+				myScore = myScore + 1;
+				$('.myscore').html(myScore);
+				$('.battleResult').html("paper covers rock, you win! "+ "My Score= " + myScore);
+			}
+		};
+		if (user1 === "scissors") {
+			if (user2 === "rock") {
+				pcScore = pcScore + 1;
+				$('.opponentScore').html(pcScore);
+				$('.battleResult').html("rock crushes scissors, you loose!" + "PC Score= "+ pcScore);
+			}else{
+				myScore = myScore + 1;
+				$('.myscore').html(myScore);
+				$('.battleResult').html("scissors shred paper, you win! "+ "My Score= " + myScore);
+			}
+		};
+	}
+	gameon(userChoice,pcChoice);
+	
+	if (myScore > (bestof / 2) ){
+		$('.resultTXT').append("Hurray! you are the winner!! " + "You= "+myScore+ " - " + "PC= "+ pcScore);
+		$('#gameOn').addClass('hide');
+		$('#finalResult').removeClass('hide');	
+	}if (pcScore > (bestof / 2)) {
+		$('.resultTXT').append("Bohoo you lost! "+ "You= "+myScore+ " vs " + "PC= "+ pcScore);
+		$('#gameOn').addClass('hide');
+		$('#finalResult').removeClass('hide');	
+	}
+}
+</script>
+</head>
+ 
+<body>
+<section id="nameRounds">
+	<h1 id="enterUsers">Enter Your Name</h1>
+	<input type="text" name="user1" id="user1name" placeholder="Your Name">
+	<h3>How many rounds?</h3>
+	<button class="theRound" data-rounds="5">Best of 5</button>
+	<button class="theRound" data-rounds="3">Best of 3</button>
+	<button class="theRound" data-rounds="1">Sudden Death</button>
+	<h4 class="result"></h4>
+	<hr>
+</section>
+
+<section id="gameOn" class="hide">
+	<p><span class="myName"></span> <span class="myscore"></span> v PC <span class="opponentScore"></span></p>
+	<h1>Choose</h1>
+	<button>Rock</button>
+	<button>Paper</button>
+	<button>Scissors</button>
+	<h4 class="battleResult"></h4>
+	<hr>
+</section>
+
+<section id="finalResult" class="hide">
+	<button class="playAgain">Play Again</button>
+	<span class="resultTXT"></span>
+</section>
+<!--
+<a href="#" onclick="letsplay('rock');">rock</a><br>
+<a href="#" onclick="letsplay('paper');">paper</a><br>
+<a href="#" onclick="letsplay('scissors');">scissors</a>
+-->
+<script>
+	$(document).ready(function(){
+		//Select how many rounds 
+		$('.theRound').on('click', function(){			
+			var el =$(this);
+			var theRounds = el.attr('data-rounds');			
+			if (el.siblings('input').val() == '') {
+				alert('empty input');
+			}else{
+				bestof = theRounds;
+				el.parent().addClass('hide');
+				el.parent().next().removeClass('hide');	
+			}
+			var myName = $('input#user1name').val();
+			console.log(myName);
+			$('.myName').text(myName);
+		});
+
+		//Game On!
+		$('#gameOn button').on('click',function(){
+			var el = $(this);
+			var weapon = el.text().toLowerCase();
+			letsplay(weapon);
+		});
+
+		//Play Again
+		$('.playAgain').on('click',function(){
+			var el = $(this);
+			myScore = 0;
+			pcScore = 0;
+			el.parent().addClass('hide');
+			$('#nameRounds').removeClass('hide');
+			$('.myscore').html(0);
+			$('.opponentScore').html(0);
+			$('.resultTXT, .battleResult').empty();
+		});
+	})
+</script>
+</body>
+
+</html>
