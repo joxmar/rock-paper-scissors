@@ -42,33 +42,33 @@ function letsplay(selection){
 			if (user2 === "paper") {
 				pcScore = pcScore + 1;				
 				$('.opponentScore').html(pcScore);
-				$('.battleResult').html("paper covers rock, you loose!" + "PC Score= "+ pcScore);
+				$('.battleResult').html("paper covers rock, you loose!");
 			}else{
 				myScore = myScore + 1;
 				$('.myscore').html(myScore);
-				$('.battleResult').html("rock crushes scissors, you win! " + "My Score= " + myScore);
+				$('.battleResult').html("rock crushes scissors, you win! ");
 			}
 		};
 		if (user1 === "paper") {
 			if (user2 === "scissors") {
 				pcScore = pcScore + 1;
 				$('.opponentScore').html(pcScore);
-				$('.battleResult').html("scissors shred paper, you loose!" + "PC Score= "+ pcScore)
+				$('.battleResult').html("scissors shred paper, you loose!")
 			}else{
 				myScore = myScore + 1;
 				$('.myscore').html(myScore);
-				$('.battleResult').html("paper covers rock, you win! "+ "My Score= " + myScore);
+				$('.battleResult').html("paper covers rock, you win! ");
 			}
 		};
 		if (user1 === "scissors") {
 			if (user2 === "rock") {
 				pcScore = pcScore + 1;
 				$('.opponentScore').html(pcScore);
-				$('.battleResult').html("rock crushes scissors, you loose!" + "PC Score= "+ pcScore);
+				$('.battleResult').html("rock crushes scissors, you loose!");
 			}else{
 				myScore = myScore + 1;
 				$('.myscore').html(myScore);
-				$('.battleResult').html("scissors shred paper, you win! "+ "My Score= " + myScore);
+				$('.battleResult').html("scissors shred paper, you win! ");
 			}
 		};
 	}
@@ -110,7 +110,7 @@ function letsplay(selection){
 </section>
 
 <section id="finalResult" class="hide">
-	<button class="playAgain">Play Again</button>
+	<button class="playAgain">Play Again</button> <br>
 	<span class="resultTXT"></span>
 </section>
 <!--
